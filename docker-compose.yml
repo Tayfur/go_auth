@@ -1,0 +1,27 @@
+version: "3"
+services:
+  database:
+    image: postgres
+    container_name: pg-docker
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - data:/var/lib/postgresql/data
+    restart: always
+
+  auth:
+    image: auth
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    env_file: 
+      - .env
+    restart: always
+    depends_on:
+      - database
+
+volumes:
+  data:
