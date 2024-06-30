@@ -5,8 +5,9 @@ services:
     container_name: pg-docker
     ports:
       - "5432:5432"
-    env_file:
-      - .env
+    environment:
+      DB_URL: postgresql://postgres:postgres@database:5432/postgres
+
     volumes:
       - data:/var/lib/postgresql/data
     restart: always

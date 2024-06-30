@@ -2,9 +2,9 @@ package handlers
 
 import (
 	"errors"
-	"go_auth/models"
-	"go_auth/pkg/config"
-	"go_auth/pkg/jwt"
+	"go_auth/cmd/config"
+	"go_auth/cmd/jwt"
+	"go_auth/pkg/models"
 
 	"github.com/go-playground/validator"
 	"github.com/google/uuid"

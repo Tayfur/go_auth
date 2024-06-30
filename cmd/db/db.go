@@ -2,8 +2,8 @@ package db
 
 import (
 	"fmt"
-	"go_auth/models"
-	"go_auth/pkg/config"
+	"go_auth/cmd/config"
+	"go_auth/pkg/models"
 
 	"github.com/labstack/gommon/log"
 	"gorm.io/driver/postgres"
@@ -12,7 +12,7 @@ import (
 
 func ConnectDb() (*gorm.DB, error) {
 	var dsn string
-	if len(config.Config("DBUrl")) == 0 {
+	if len(config.Config("DB_URL")) == 0 {
 		dsn = fmt.Sprintf("host=%s port=%d user=%s dbname=%s password=%s sslmode=disable",
 			config.Config("DB_HOST"),
 			config.PortConfig("DB_PORT"),
@@ -20,7 +20,7 @@ func ConnectDb() (*gorm.DB, error) {
 			config.Config("POSTGRES_DB"),
 			config.Config("POSTGRES_PASSWORD"))
 	} else {
-		dsn = config.Config("DBUrl")
+		dsn = config.Config("DB_URL")
 	}
 	database, err := gorm.Open(postgres.Open(dsn))
 	if err != nil {

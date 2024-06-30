@@ -1,15 +1,14 @@
 package routes
 
 import (
-	"go_auth/handlers"
+	"go_auth/pkg/handlers"
 
-	"github.com/go-redis/redis/v8"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"gorm.io/gorm"
 )
 
-func SetupRoutes(e *echo.Echo, db *gorm.DB, redis *redis.Client) {
+func SetupRoutes(e *echo.Echo, db *gorm.DB) {
 	auth := e.Group("/auth")
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, uri=${uri}, status=${status},ms=${latency_human}\n",
@@ -26,7 +25,7 @@ func SetupRoutes(e *echo.Echo, db *gorm.DB, redis *redis.Client) {
 	}))
 
 	api.GET("/me", func(c echo.Context) error {
-		return handlers.Me(c, db, redis)
+		return handlers.Me(c, db)
 	})
 
 }
